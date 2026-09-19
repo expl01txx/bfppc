@@ -62,6 +62,7 @@ pub fn generate_code(insts: &[Inst]) -> Result<Vec<u8>, IcedError> {
                 a.jg(skip)?; // if ret > 0, keep byte
                 a.mov(byte_ptr(r13), 0i32)?; // EOF/error → 0
                 a.set_label(&mut skip)?;
+                a.nop()?;
             }
             Inst::LoopStart => {
                 let mut start = a.create_label();
@@ -73,8 +74,8 @@ pub fn generate_code(insts: &[Inst]) -> Result<Vec<u8>, IcedError> {
             }
             Inst::LoopEnd => {
                 let (start, mut end) = loops.pop().expect("unmatched ']' in codegen");
-                a.jne(start)?; // if cell != 0, jump back to matching '['
                 a.set_label(&mut end)?;
+                a.jne(start)?; // if cell != 0, jump back to matching '['
             }
             _ => panic!("Invalid instruction"),
         }
