@@ -6,7 +6,7 @@
 * iced-x86 - For assembly generation
 * object   - For creating elf files
 
-### Example usages:
+### Example usage:
 ```sh
 ./bfppc -i hello.bf -o hello
 ```
