@@ -1,0 +1,17 @@
+[package]
+name = "bfppc"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.6.7", features = ["derive"] }
+iced-x86 = { version = "1.21.0", features = ["code_asm"]}
+logos = "0.16.1"
+object = { version = "0.40.0", features = ["write"] }
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
